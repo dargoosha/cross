@@ -1,0 +1,34 @@
+<app-header name="Завдання 2"></app-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>На заданому проміжку чисел [a, b] знайдіть кількість чисел, які
+        кратні 44, непарні і при діленні на 5 дають в остачі 3. Потрібно вивести як
+        самі числа так і результати обрахунку.</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Число a</ion-label>
+        <ion-input type="number" [(ngModel)]="a"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Число b</ion-label>
+        <ion-input type="number" [(ngModel)]="b"></ion-input>
+      </ion-item>
+      <ion-button expand="full" (click)="calculate()">Обчислити</ion-button>
+      <ion-text *ngIf="multiples44.length">
+        <h2>Числа кратні 44:</h2>
+        <p>{{ multiples44.join(', ') }}</p>
+      </ion-text>
+      <ion-text *ngIf="specialNumbers.length">
+        <h2>Числа, що є непарними і дають в остачі 3 при діленні на 5:</h2>
+        <p>{{ specialNumbers.join(', ') }}</p>
+      </ion-text>
+      <ion-text *ngIf="count !== null">
+        <h2>Загальна кількість чисел: {{ count }}</h2>
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+

@@ -1,0 +1,28 @@
+<app-header name="Завдання 1"></app-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Задано три числа. Якщо хоч одне з більше за 5, то знайти куб
+      суми. В іншому випадку – суму всіх чисел</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Число 1</ion-label>
+        <ion-input type="number" [(ngModel)]="num1"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Число 2</ion-label>
+        <ion-input type="number" [(ngModel)]="num2"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Число 3</ion-label>
+        <ion-input type="number" [(ngModel)]="num3"></ion-input>
+      </ion-item>
+      <ion-button expand="full" (click)="calculate()">Обчислити</ion-button>
+      <ion-text *ngIf="result !== null">
+        <h2>Результат: {{ result }}</h2>
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

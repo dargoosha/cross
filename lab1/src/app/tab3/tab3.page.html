@@ -1,0 +1,30 @@
+<app-header name="Завдання 3"></app-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Згенерувати матрицю розміром NxN. Виокремити за допомогою
+        кольору усі однакові за модулем елементи, якщо їх кількість парна.</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Розмір N</ion-label>
+        <ion-input type="number" [(ngModel)]="n"></ion-input>
+      </ion-item>
+      <ion-button expand="full" (click)="generateMatrix()">Згенерувати матрицю</ion-button>
+      <div *ngIf="matrix.length">
+        <h2>Матриця:</h2>
+        <table class="matrix">
+          <tbody>
+            <tr *ngFor="let row of matrix">
+              <td *ngFor="let num of row" 
+                  [ngStyle]="{'background-color': highlightedNumbers.has(getAbsoluteValue(num)) ? 'lightblue' : 'transparent'}"
+                  class="cell">{{ num }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
