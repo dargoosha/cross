@@ -1,0 +1,21 @@
+<app-header name="Лабораторна робота №2"></app-header>
+
+<ion-content>
+  <div *ngIf="getCourses().length > 0">
+    <h2>Групи студентів за курсами</h2>
+    <div *ngFor="let course of getCourses()">
+      <h3>Курс {{ course }}</h3>
+      <div *ngFor="let group of groupedGroups[course]">
+        <p><strong>{{ group.name }}</strong></p>
+        <p>Кількість студентів: {{ group.students_count }}</p>
+      </div>
+    </div>
+    
+    <h3>Графік кількості студентів</h3>
+    <canvas #courseChart></canvas>
+  </div>
+
+  <div *ngIf="getCourses().length === 0">
+    <p>Завантаження даних...</p>
+  </div>
+</ion-content>
