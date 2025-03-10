@@ -9,4 +9,8 @@ export const routes: Routes = [
     path: 'cloud',
     loadComponent: () => import('./cloud/cloud.page').then( m => m.CloudPage)
   },
+  {
+    path: 'abstract',
+    loadComponent: () => import('./abstract/abstract.page').then( m => m.AbstractPage)
+  },
 ];

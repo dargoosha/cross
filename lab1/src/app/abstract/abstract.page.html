@@ -1,0 +1,15 @@
+<app-header name="Лабораторна робота №3"></app-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let instrument of instruments" 
+              [ngClass]="{'highlight': instrument.noteRange === maxNoteRange}">
+      <ion-label>
+        <h2>{{ instrument.name }} ({{ instrument.type }})</h2>
+        <p>Діапазон нот: {{ instrument.noteRange }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
