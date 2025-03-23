@@ -1,0 +1,29 @@
+<app-header name="Лабораторна робота №5"></app-header>
+
+
+<ion-content>
+  <div class="container">
+    <h2>Таблиця результатів</h2>
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Сервіс 1</th>
+          <th>Сервіс 2</th>
+          <th>Сервіс 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of tableData">
+          <td>{{ row.service1 | number:'1.5-5' }}</td>
+          <td>{{ row.service2 | number:'1.5-5' }}</td>
+          <td>{{ row.service3 | number:'1.5-5' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Графіки</h2>
+    <canvas id="chart1"></canvas>
+    <canvas id="chart2"></canvas>
+    <canvas id="chart3"></canvas>
+  </div>
+</ion-content>
