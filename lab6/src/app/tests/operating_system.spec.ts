@@ -10,7 +10,6 @@ describe('OperatingSystem', () => {
   const testSupportedArchitectures = ['x64', 'ARM64'];
 
   beforeEach(() => {
-    // Create a new instance before each test
     operatingSystem = new OperatingSystem(
       testId,
       testName,
@@ -26,7 +25,7 @@ describe('OperatingSystem', () => {
   });
 
   it('should inherit properties from BaseProduct', () => {
-    // Test inherited methods
+    
     expect(operatingSystem.getId()).toBe(testId);
     expect(operatingSystem.getName()).toBe(testName);
     expect(operatingSystem.getPrice()).toBe(testPrice);
@@ -34,22 +33,18 @@ describe('OperatingSystem', () => {
   });
 
   it('should override getInfo() to include OS-specific properties', () => {
-    // Test overridden getInfo method
     const info = operatingSystem.getInfo();
     
-    // Basic product info should be included
     expect(info).toContain(`ID: ${testId}`);
     expect(info).toContain(`Name: ${testName}`);
     expect(info).toContain(`Price: $${testPrice}`);
     expect(info).toContain(`Description: ${testDescription}`);
     
-    // OS-specific properties should be included
     expect(info).toContain(`Version: ${testVersion}`);
     expect(info).toContain(`Supported Architectures: x64, ARM64`);
   });
 
   it('should handle free operating systems', () => {
-    // Test with free product
     const freeOS = new OperatingSystem(
       'os-free',
       'Ubuntu Linux',
@@ -66,7 +61,6 @@ describe('OperatingSystem', () => {
   });
 
   it('should handle different versions', () => {
-    // Test with different version
     const legacyOS = new OperatingSystem(
       'os-002',
       'Windows 10',
@@ -80,7 +74,6 @@ describe('OperatingSystem', () => {
   });
 
   it('should handle different sets of supported architectures', () => {
-    // Test with different architectures
     const macOS = new OperatingSystem(
       'os-003',
       'macOS Ventura',
