@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Розрахунок відстані</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-coordinate-input 
+    (coordinatesSubmitted)="onCoordinatesSubmitted($event)" 
+    [formattedDistance]="formattedDistance" 
+    [distance]="distance">
+  </app-coordinate-input>
+</ion-content>

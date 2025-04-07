@@ -1,0 +1,31 @@
+
+  <form [formGroup]="coordinateForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Широта 1 (lat1)</ion-label>
+      <ion-input type="number" formControlName="lat1"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Довгота 1 (lon1)</ion-label>
+      <ion-input type="number" formControlName="lon1"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Широта 2 (lat2)</ion-label>
+      <ion-input type="number" formControlName="lat2"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Довгота 2 (lon2)</ion-label>
+      <ion-input type="number" formControlName="lon2"></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="block" [disabled]="!coordinateForm.valid">
+      Обчислити відстань
+    </ion-button>
+
+    <ion-card *ngIf="distance !== null">
+      <ion-card-header>
+        <ion-card-title>Результат</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Відстань між точками: {{ formattedDistance }} км
+      </ion-card-content>
+    </ion-card>
+  </form>
