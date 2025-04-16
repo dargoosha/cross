@@ -1,18 +1,18 @@
 import { BaseProduct } from "./base_product";
 
-export class Antivirus extends BaseProduct {
+export class Driver extends BaseProduct {
     constructor(
         id: string,
         name: string,
         price: number,
         description: string,
-        private protectionLevel: string, 
-        private supportedDevices: number 
+        private hardwareType: string, 
+        private version: string 
     ) {
         super(id, name, price, description);
     }
 
     override getInfo(): string {
-        return `${super.getInfo()}\nProtection Level: ${this.protectionLevel}\nSupported Devices: ${this.supportedDevices}`;
+        return `${super.getInfo()}\nHardware Type: ${this.hardwareType}\nVersion: ${this.version}`;
     }
 }

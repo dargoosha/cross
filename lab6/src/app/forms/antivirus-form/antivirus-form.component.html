@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Antivirus Form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+  <form [formGroup]="antivirusForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">ID</ion-label>
+      <ion-input formControlName="id" type="text"></ion-input>
+      <div *ngIf="antivirusForm.get('id')?.invalid && antivirusForm.get('id')?.touched" class="error">
+        ID is required and must be alphanumeric (max 50 characters).
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input formControlName="name" type="text"></ion-input>
+      <div *ngIf="antivirusForm.get('name')?.invalid && antivirusForm.get('name')?.touched" class="error">
+        Name is required (2-100 characters).
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price</ion-label>
+      <ion-input formControlName="price" type="number"></ion-input>
+      <div *ngIf="antivirusForm.get('price')?.invalid && antivirusForm.get('price')?.touched" class="error">
+        Price is required and must be non-negative.
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-input formControlName="description" type="text"></ion-input>
+      <div *ngIf="antivirusForm.get('description')?.invalid && antivirusForm.get('description')?.touched" class="error">
+        Description is required (10-500 characters).
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Protection Level</ion-label>
+      <ion-select formControlName="protectionLevel">
+        <ion-select-option value="Basic">Basic</ion-select-option>
+        <ion-select-option value="Advanced">Advanced</ion-select-option>
+        <ion-select-option value="Premium">Premium</ion-select-option>
+      </ion-select>
+      <div *ngIf="antivirusForm.get('protectionLevel')?.invalid && antivirusForm.get('protectionLevel')?.touched" class="error">
+        Protection Level is required (Basic, Advanced, or Premium).
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Supported Devices</ion-label>
+      <ion-input formControlName="supportedDevices" type="number"></ion-input>
+      <div *ngIf="antivirusForm.get('supportedDevices')?.invalid && antivirusForm.get('supportedDevices')?.touched" class="error">
+        Supported Devices must be a positive number.
+      </div>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" [disabled]="antivirusForm.invalid">Submit</ion-button>
+  </form>

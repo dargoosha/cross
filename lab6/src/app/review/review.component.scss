@@ -1,0 +1,42 @@
+.filters {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+  
+    ion-select {
+      --padding-start: 16px;
+      --padding-end: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  
+    ion-range {
+      --knob-size: 18px;
+      --bar-height: 4px;
+      padding: 16px 0;
+    }
+  
+    ion-button {
+      --border-radius: 4px;
+      margin-top: 8px;
+    }
+  }
+  
+  ion-list {
+    ion-item {
+      --padding-start: 16px;
+      --padding-end: 16px;
+      
+      ion-label {
+        h2 {
+          font-size: 1.2rem;
+          font-weight: 600;
+        }
+        p {
+          margin: 4px 0;
+          color: #666;
+        }
+      }
+    }
+  }

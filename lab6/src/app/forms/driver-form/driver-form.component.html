@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Driver Form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+  <form [formGroup]="driverForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">ID</ion-label>
+      <ion-input formControlName="id" type="text"></ion-input>
+      <div *ngIf="driverForm.get('id')?.invalid && driverForm.get('id')?.touched" class="error">
+        ID is required and must be alphanumeric (max 50 characters).
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input formControlName="name" type="text"></ion-input>
+      <div *ngIf="driverForm.get('name')?.invalid && driverForm.get('name')?.touched" class="error">
+        Name is required (2-100 characters).
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price</ion-label>
+      <ion-input formControlName="price" type="number"></ion-input>
+      <div *ngIf="driverForm.get('price')?.invalid && driverForm.get('price')?.touched" class="error">
+        Price is required and must be non-negative.
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-input formControlName="description" type="text"></ion-input>
+      <div *ngIf="driverForm.get('description')?.invalid && driverForm.get('description')?.touched" class="error">
+        Description is required (10-500 characters).
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Hardware Type</ion-label>
+      <ion-select formControlName="hardwareType">
+        <ion-select-option value="GPU">GPU</ion-select-option>
+        <ion-select-option value="Printer">Printer</ion-select-option>
+        <ion-select-option value="Network">Network</ion-select-option>
+        <ion-select-option value="Other">Other</ion-select-option>
+      </ion-select>
+      <div *ngIf="driverForm.get('hardwareType')?.invalid && driverForm.get('hardwareType')?.touched" class="error">
+        Hardware Type is required (GPU, Printer, Network, or Other).
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Version</ion-label>
+      <ion-input formControlName="version" type="text"></ion-input>
+      <div *ngIf="driverForm.get('version')?.invalid && driverForm.get('version')?.touched" class="error">
+        Version is required (e.g., 1.0 or 2.1.3).
+      </div>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" [disabled]="driverForm.invalid">Submit</ion-button>
+  </form>

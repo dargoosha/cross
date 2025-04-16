@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Office Suite Form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+  <form [formGroup]="officeSuiteForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">ID</ion-label>
+      <ion-input formControlName="id" type="text"></ion-input>
+      <div *ngIf="officeSuiteForm.get('id')?.invalid && officeSuiteForm.get('id')?.touched" class="error">
+        ID is required and must be alphanumeric (max 50 characters).
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input formControlName="name" type="text"></ion-input>
+      <div *ngIf="officeSuiteForm.get('name')?.invalid && officeSuiteForm.get('name')?.touched" class="error">
+        Name is required (2-100 characters).
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price</ion-label>
+      <ion-input formControlName="price" type="number"></ion-input>
+      <div *ngIf="officeSuiteForm.get('price')?.invalid && officeSuiteForm.get('price')?.touched" class="error">
+        Price is required and must be non-negative.
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-input formControlName="description" type="text"></ion-input>
+      <div *ngIf="officeSuiteForm.get('description')?.invalid && officeSuiteForm.get('description')?.touched" class="error">
+        Description is required (10-500 characters).
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Included Apps</ion-label>
+      <ion-select formControlName="includedApps" multiple="true">
+        <ion-select-option value="Word">Word</ion-select-option>
+        <ion-select-option value="Excel">Excel</ion-select-option>
+        <ion-select-option value="PowerPoint">PowerPoint</ion-select-option>
+        <ion-select-option value="Outlook">Outlook</ion-select-option>
+        <ion-select-option value="OneNote">OneNote</ion-select-option>
+      </ion-select>
+      <div *ngIf="officeSuiteForm.get('includedApps')?.invalid && officeSuiteForm.get('includedApps')?.touched" class="error">
+        At least one app must be selected.
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Subscription-Based</ion-label>
+      <ion-checkbox formControlName="isSubscription"></ion-checkbox>
+      <div *ngIf="officeSuiteForm.get('isSubscription')?.invalid && officeSuiteForm.get('isSubscription')?.touched" class="error">
+        Subscription status is required.
+      </div>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" [disabled]="officeSuiteForm.invalid">Submit</ion-button>
+  </form>

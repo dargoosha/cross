@@ -3,6 +3,7 @@ import { Antivirus } from '../classes/antivirus';
 import { OfficeSuite } from '../classes/office_suite';
 import { OperatingSystem } from '../classes/operating_system';
 import { IProduct } from '../classes/Iproduct';
+import { Driver } from '../classes/driver';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,15 @@ export class SoftwareFactoryService {
           data.includedApps,
           data.isSubscription
         );
+      case 'driver':
+        return new Driver(
+          data.id,
+          data.name,
+          data.price,
+          data.description,
+          data.hardwareType,
+          data.version
+      );
       default:
         throw new Error('Unknown product type');
     }

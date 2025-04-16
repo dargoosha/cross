@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Add Product</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+  <ion-segment [(ngModel)]="selectedProductType" (ionChange)="onSegmentChange($event)">
+    <ion-segment-button value="antivirus">
+      <ion-label>Antivirus</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="office">
+      <ion-label>Office Suite</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="os">
+      <ion-label>Operating System</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="driver">
+      <ion-label>Driver</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="selectedProductType">
+    <app-antivirus-form *ngSwitchCase="'antivirus'" (submitForm)="onFormSubmit($event)"></app-antivirus-form>
+    <app-offsuite-form *ngSwitchCase="'office'" (submitForm)="onFormSubmit($event)"></app-offsuite-form>
+    <app-os-form *ngSwitchCase="'os'" (submitForm)="onFormSubmit($event)"></app-os-form>
+    <app-driver-form *ngSwitchCase="'driver'" (submitForm)="onFormSubmit($event)"></app-driver-form>
+  </div>
