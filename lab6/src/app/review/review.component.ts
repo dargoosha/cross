@@ -33,21 +33,17 @@ import { OperatingSystem } from '../classes/operating_system';
 export class ReviewComponent implements OnInit {
   @Input() products: IProduct[] = [];
 
-  // Filter subjects
   private selectedTypesSubject = new BehaviorSubject<string[]>([]);
   private priceRangeSubject = new BehaviorSubject<{ min: number; max: number }>({ min: 0, max: Infinity });
 
-  // Observable for filtered products
   filteredProducts$ = combineLatest([
     this.selectedTypesSubject,
     this.priceRangeSubject
   ]).pipe(
     map(([selectedTypes, priceRange]) => {
       return this.products.filter(product => {
-        // Type filtering
         const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(this.getProductType(product));
         
-        // Price filtering
         const priceMatch = product.getPrice() >= priceRange.min && product.getPrice() <= priceRange.max;
 
         return typeMatch && priceMatch;
@@ -55,7 +51,6 @@ export class ReviewComponent implements OnInit {
     })
   );
 
-  // Available product types
   productTypes = [
     { value: 'os', label: 'Operating System' },
     { value: 'antivirus', label: 'Antivirus' },
@@ -63,13 +58,11 @@ export class ReviewComponent implements OnInit {
     { value: 'driver', label: 'Driver' }
   ];
 
-  // Price range bounds
   priceBounds = { min: 0, max: 1000 };
 
   constructor() {}
 
   ngOnInit() {
-    // Initialize price bounds based on products
     if (this.products.length > 0) {
       const prices = this.products.map(p => p.getPrice());
       this.priceBounds = {
@@ -80,12 +73,10 @@ export class ReviewComponent implements OnInit {
     }
   }
 
-  // Update selected types
   onTypeChange(event: any) {
     this.selectedTypesSubject.next(event.detail.value);
   }
 
-  // Update price range
   onPriceRangeChange(event: any) {
     this.priceRangeSubject.next({
       min: event.detail.value.lower,
@@ -93,13 +84,11 @@ export class ReviewComponent implements OnInit {
     });
   }
 
-  // Reset filters
   resetFilters() {
     this.selectedTypesSubject.next([]);
     this.priceRangeSubject.next(this.priceBounds);
   }
 
-  // Helper method to determine product type
   private getProductType(product: IProduct): string {
     if (product instanceof OperatingSystem) return 'os';
     if (product instanceof Antivirus) return 'antivirus';

@@ -61,7 +61,7 @@ export class EditComponent implements OnInit {
     if ('includedApps' in product) return 'office';
     if ('version' in product && 'supportedArchitectures' in product) return 'os';
     if ('hardwareType' in product) return 'driver';
-    return 'antivirus'; // Default fallback
+    return 'antivirus';
   }
 
   onFormSubmit(formData: any) {
