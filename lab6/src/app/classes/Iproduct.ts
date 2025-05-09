@@ -4,4 +4,5 @@ export interface IProduct {
     getPrice(): number;
     getDescription(): string;
     getInfo(): string; 
+    getType(): string;
 }

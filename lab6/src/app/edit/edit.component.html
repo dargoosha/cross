@@ -4,34 +4,78 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-item>
+  <ion-label>Delete Products By Type</ion-label>
+  <ion-select placeholder="Select Type" (ionChange)="onSelectTypeToDelete($event.detail.value)">
+    <ion-select-option *ngFor="let type of availableTypes" [value]="type">
+      {{ type | titlecase }}
+    </ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-button *ngIf="typeToDelete"
+            (click)="onDeleteTypeCascade()"
+            expand="block"
+            color="danger">
+  Delete All "{{ typeToDelete | titlecase }}" Products
+</ion-button>
+
   <ion-item *ngIf="products.length > 0">
     <ion-label>Select Product</ion-label>
     <ion-select (ionChange)="onSelectProduct($event)" placeholder="Select a product">
-      <ion-select-option *ngFor="let product of products; let i = index" [value]="i">{{ product.getName()}}</ion-select-option>
+      <ion-select-option *ngFor="let product of products; let i = index" [value]="i">
+        {{ product.getName() }}
+      </ion-select-option>
     </ion-select>
   </ion-item>
+
   <p *ngIf="products.length === 0">No products available to edit.</p>
 
-  <ion-segment [(ngModel)]="selectedProductType" (ionChange)="onSelectProduct($event)" *ngIf="selectedProductIndex !== null">
-    <ion-segment-button value="antivirus" [disabled]="selectedProductType !== 'antivirus'">
-      <ion-label>Antivirus</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="office" [disabled]="selectedProductType !== 'office'">
-      <ion-label>Office Suite</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="os" [disabled]="selectedProductType !== 'os'">
-      <ion-label>Operating System</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="driver" [disabled]="selectedProductType !== 'driver'">
-      <ion-label>Driver</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+  <ion-item *ngIf="selectedProductIndex !== null">
+    <ion-label>Change Product Type</ion-label>
+    <ion-select [(ngModel)]="selectedProductType" (ionChange)="onChangeProductType($event.detail.value)">
+      <ion-select-option *ngFor="let type of availableTypes" [value]="type">
+        {{ type | titlecase }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
 
   <div [ngSwitch]="selectedProductType" *ngIf="selectedProductIndex !== null">
-    <app-antivirus-form *ngSwitchCase="'antivirus'" [ngValue]="products[selectedProductIndex]" (submitForm)="onFormSubmit($event)"></app-antivirus-form>
-    <app-offsuite-form *ngSwitchCase="'office'" [ngValue]="products[selectedProductIndex]" (submitForm)="onFormSubmit($event)"></app-offsuite-form>
-    <app-os-form *ngSwitchCase="'os'" [ngValue]="products[selectedProductIndex]" (submitForm)="onFormSubmit($event)"></app-os-form>
-    <app-driver-form *ngSwitchCase="'driver'" [ngValue]="products[selectedProductIndex]" (submitForm)="onFormSubmit($event)"></app-driver-form>
+    <app-antivirus-form
+      *ngSwitchCase="'antivirus'"
+      [ngValue]="products[selectedProductIndex]"
+      (submitForm)="onFormSubmit($event)">
+    </app-antivirus-form>
+
+    <app-offsuite-form
+      *ngSwitchCase="'office'"
+      [ngValue]="products[selectedProductIndex]"
+      (submitForm)="onFormSubmit($event)">
+    </app-offsuite-form>
+
+    <app-os-form
+      *ngSwitchCase="'os'"
+      [ngValue]="products[selectedProductIndex]"
+      (submitForm)="onFormSubmit($event)">
+    </app-os-form>
+
+    <app-driver-form
+      *ngSwitchCase="'driver'"
+      [ngValue]="products[selectedProductIndex]"
+      (submitForm)="onFormSubmit($event)">
+    </app-driver-form>
+
+    <app-other-form
+      *ngSwitchCase="'other'"
+      [ngValue]="products[selectedProductIndex]"
+      (submitForm)="onFormSubmit($event)">
+    </app-other-form>
   </div>
 
-  <ion-button *ngIf="selectedProductIndex !== null" (click)="onDeleteProduct()" expand="block" color="danger">Delete Product</ion-button>
+  <!-- Кнопка видалення -->
+  <ion-button *ngIf="selectedProductIndex !== null"
+              (click)="onDeleteProduct()"
+              expand="block"
+              color="danger">
+    Delete Product
+  </ion-button>

@@ -85,18 +85,6 @@ describe('SoftwareFactoryService', () => {
     expect(product.getDescription()).toBe(officeData.description);
   });
 
-  it('should throw an error for unknown product type', () => {
-    // Arrange
-    const unknownData = {
-      id: 'unk-001',
-      name: 'Unknown Product',
-      price: 9.99,
-      description: 'Some description'
-    };
-
-    // Act & Assert
-    expect(() => service.createProduct('unknown', unknownData)).toThrowError('Unknown product type');
-  });
 
   it('should verify product info contains correct data', () => {
     // Arrange

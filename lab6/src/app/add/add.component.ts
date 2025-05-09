@@ -8,6 +8,8 @@ import { DriverFormComponent } from '../forms/driver-form/driver-form.component'
 import { OffsuiteFormComponent } from '../forms/offsuite-form/offsuite-form.component';
 import { OsFormComponent } from '../forms/os-form/os-form.component';
 import { FormsModule } from '@angular/forms';
+import { ProductServiceService } from '../services/product-service.service';
+import { OtherFormComponent } from "../forms/other-form/other-form.component";
 
 @Component({
   selector: 'app-add',
@@ -26,14 +28,18 @@ import { FormsModule } from '@angular/forms';
     OffsuiteFormComponent,
     OsFormComponent,
     DriverFormComponent,
-    FormsModule
-  ]
+    FormsModule,
+    OtherFormComponent
+]
 })
 export class AddComponent implements OnInit {
   @Input() products: IProduct[] = [];
   selectedProductType: string = 'antivirus';
 
-  constructor(private softwareFactory: SoftwareFactoryService) {}
+    constructor(
+    private softwareFactory: SoftwareFactoryService,
+    private productService: ProductServiceService
+  ) {}
 
   ngOnInit() {}
 
@@ -41,12 +47,15 @@ export class AddComponent implements OnInit {
     this.selectedProductType = event.detail.value;
   }
 
-  onFormSubmit(formData: any) {
+  async onFormSubmit(formData: any) {
     if (formData) {
-      const newProduct = this.softwareFactory.createProduct(this.selectedProductType, formData);
-      this.products.push(newProduct);
-      console.log('Product added:', newProduct);
-      console.log('Updated products array:', this.products);
+      try {
+        const newProduct = await this.productService.addProduct(this.selectedProductType, formData);
+        this.products.push(newProduct);
+        console.log('Продукт додано:', newProduct);
+      } catch (error) {
+        console.error('Помилка додавання продукту:', error);
+      }
     }
   }
 }

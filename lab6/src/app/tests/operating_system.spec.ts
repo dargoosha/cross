@@ -3,6 +3,7 @@ import { OperatingSystem } from "../classes/operating_system";
 describe('OperatingSystem', () => {
   let operatingSystem: OperatingSystem;
   const testId = 'os-001';
+  const testType = 'os';
   const testName = 'Windows 11';
   const testPrice = 199.99;
   const testDescription = 'Latest Windows operating system';
@@ -11,6 +12,7 @@ describe('OperatingSystem', () => {
 
   beforeEach(() => {
     operatingSystem = new OperatingSystem(
+      testType,
       testId,
       testName,
       testPrice,
@@ -46,6 +48,7 @@ describe('OperatingSystem', () => {
 
   it('should handle free operating systems', () => {
     const freeOS = new OperatingSystem(
+      'os',
       'os-free',
       'Ubuntu Linux',
       0,
@@ -62,6 +65,7 @@ describe('OperatingSystem', () => {
 
   it('should handle different versions', () => {
     const legacyOS = new OperatingSystem(
+      'os',
       'os-002',
       'Windows 10',
       139.99,
@@ -75,6 +79,7 @@ describe('OperatingSystem', () => {
 
   it('should handle different sets of supported architectures', () => {
     const macOS = new OperatingSystem(
+      'os',
       'os-003',
       'macOS Ventura',
       129.99,
@@ -89,6 +94,7 @@ describe('OperatingSystem', () => {
   it('should handle empty supported architectures list', () => {
     // Test with empty architectures list
     const customOS = new OperatingSystem(
+      'os',
       'os-004',
       'Custom OS',
       49.99,

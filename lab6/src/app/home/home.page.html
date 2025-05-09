@@ -7,6 +7,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <ion-loading
+    *ngIf="isLoading"
+    message="Завантаження товарів..."
+    spinner="circles"
+    [translucent]="true"
+    [animated]="true"
+  ></ion-loading>
+
   <ion-segment [(ngModel)]="selectedSegment">
     <ion-segment-button value="review">
       <ion-label>Review</ion-label>
@@ -18,8 +27,8 @@
       <ion-label>Add</ion-label>
     </ion-segment-button>
   </ion-segment>
-
-  <div [ngSwitch]="selectedSegment">
+  
+  <div [ngSwitch]="selectedSegment" *ngIf="!isLoading">
     <app-review *ngSwitchCase="'review'" [products]="products"></app-review>
     <app-edit *ngSwitchCase="'edit'" [products]="products"></app-edit>
     <app-add *ngSwitchCase="'add'" [products]="products"></app-add>

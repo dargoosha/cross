@@ -2,6 +2,7 @@ import { BaseProduct } from "./base_product";
 
 export class Antivirus extends BaseProduct {
     constructor(
+        type: string,
         id: string,
         name: string,
         price: number,
@@ -9,7 +10,7 @@ export class Antivirus extends BaseProduct {
         private protectionLevel: string, 
         private supportedDevices: number 
     ) {
-        super(id, name, price, description);
+        super( type, id, name, price, description);
     }
 
     override getInfo(): string {

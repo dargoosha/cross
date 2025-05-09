@@ -42,7 +42,7 @@ export class ReviewComponent implements OnInit {
   ]).pipe(
     map(([selectedTypes, priceRange]) => {
       return this.products.filter(product => {
-        const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(this.getProductType(product));
+        const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(product.getType());
         
         const priceMatch = product.getPrice() >= priceRange.min && product.getPrice() <= priceRange.max;
 
@@ -51,12 +51,7 @@ export class ReviewComponent implements OnInit {
     })
   );
 
-  productTypes = [
-    { value: 'os', label: 'Operating System' },
-    { value: 'antivirus', label: 'Antivirus' },
-    { value: 'office', label: 'Office Suite' },
-    { value: 'driver', label: 'Driver' }
-  ];
+  productTypes: { value: string; label: string }[] = [];
 
   priceBounds = { min: 0, max: 1000 };
 
@@ -70,8 +65,24 @@ export class ReviewComponent implements OnInit {
         max: Math.ceil(Math.max(...prices))
       };
       this.priceRangeSubject.next(this.priceBounds);
+  
+      const uniqueTypes = Array.from(new Set(this.products.map(p => p.getType())));
+      this.productTypes = uniqueTypes.map(type => ({
+        value: type,
+        label: this.getTypeLabel(type)
+      }));
     }
   }
+
+  private getTypeLabel(type: string): string {
+    switch (type) {
+      case 'os': return 'Operating System';
+      case 'antivirus': return 'Antivirus';
+      case 'office': return 'Office Suite';
+      case 'driver': return 'Driver';
+      default: return type;
+  }
+}
 
   onTypeChange(event: any) {
     this.selectedTypesSubject.next(event.detail.value);
@@ -87,13 +98,5 @@ export class ReviewComponent implements OnInit {
   resetFilters() {
     this.selectedTypesSubject.next([]);
     this.priceRangeSubject.next(this.priceBounds);
-  }
-
-  private getProductType(product: IProduct): string {
-    if (product instanceof OperatingSystem) return 'os';
-    if (product instanceof Antivirus) return 'antivirus';
-    if (product instanceof OfficeSuite) return 'office';
-    if (product instanceof Driver) return 'driver';
-    return '';
   }
 }

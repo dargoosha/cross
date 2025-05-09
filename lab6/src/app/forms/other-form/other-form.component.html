@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>New Form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+  <form [formGroup]="otherForm" (ngSubmit)="onSubmit()">
+
+    <ion-item>
+      <ion-label position="floating">Type</ion-label>
+      <ion-input formControlName="type" type="text"></ion-input>
+      <div *ngIf="otherForm.get('type')?.invalid && otherForm.get('type')?.touched" class="error">
+        Type is required (2-100 characters).
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input formControlName="name" type="text"></ion-input>
+      <div *ngIf="otherForm.get('name')?.invalid && otherForm.get('name')?.touched" class="error">
+        Name is required (2-100 characters).
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price</ion-label>
+      <ion-input formControlName="price" type="number"></ion-input>
+      <div *ngIf="otherForm.get('price')?.invalid && otherForm.get('price')?.touched" class="error">
+        Price is required and must be non-negative.
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-input formControlName="description" type="text"></ion-input>
+      <div *ngIf="otherForm.get('description')?.invalid && otherForm.get('description')?.touched" class="error">
+        Description is required (10-500 characters).
+      </div>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" [disabled]="otherForm.invalid">Submit</ion-button>
+  </form>

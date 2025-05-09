@@ -1,53 +1,119 @@
 import { Injectable } from '@angular/core';
 import { SoftwareFactoryService } from './software-factory.service';
 import { IProduct } from '../classes/Iproduct';
-
+import { Database, ref, get, set, update, remove } from '@angular/fire/database';
+import { inject } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductServiceService {
-  private jsonBinUrl = 'https://api.jsonbin.io/v3/b/67ec2a198a456b796680aae1/latest';
-  private jsonBinKey = '$2a$10$FONQ3CRy4LKnYn3eqLJOvOxtDwoStWgJcN0joZJsFwlPS8LW/oLvG';
-  
+  private db: Database = inject(Database);
   private products: IProduct[] = [];
-  private factory: SoftwareFactoryService;
 
-  constructor(factory: SoftwareFactoryService) {
-    this.factory = factory;
-  }
+  constructor(private factory: SoftwareFactoryService) {}
 
   async fetchProducts(): Promise<void> {
     try {
-      const response = await fetch(this.jsonBinUrl, {
-        method: 'GET',
-        headers: {
-          'X-Master-Key': this.jsonBinKey
-        }
-      });
-      
-      const data = await response.json();
-      const productList = data.record || data; 
+      const productsRef = ref(this.db, 'products');
+      const snapshot = await get(productsRef);
 
-      this.products = productList.map((productData: any) =>
-        this.factory.createProduct(productData.type, productData)
-      );
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        this.products = Object.values(data).map((productData: any) =>
+          this.factory.createProduct(productData.type, productData)
+        );
+      } else {
+        console.log('Дані не знайдено!');
+      }
     } catch (error) {
-      console.error('Помилка завантаження продуктів:', error);
+      console.error('Помилка завантаження продуктів з Firebase:', error);
       throw error;
     }
-  }
-
-  addProduct(type: string, data: any): void {
-    const product = this.factory.createProduct(type, data);
-    this.products.push(product);
   }
 
   getProducts(): IProduct[] {
     return this.products;
   }
 
+  async updateProduct(id: string, type: string, data: any): Promise<void> {
+    const productRef = ref(this.db, `products/${id}`);
+    const updatedProduct = this.factory.createProduct(type, data);
+    await update(productRef, { ...data, type });
+    const index = this.products.findIndex(p => p.getId() === id);
+    if (index !== -1) {
+      this.products[index] = updatedProduct;
+    }
+    await this.fetchProducts();
+  }
+
+  async deleteProduct(id: string): Promise<void> {
+    try {
+      const productRef = ref(this.db, `products/${id}`);
+      await remove(productRef); 
+
+      const index = this.products.findIndex(p => p.getId() === id);
+      if (index !== -1) {
+        this.products.splice(index, 1);
+      }
+      await this.fetchProducts();
+    } catch (error) {
+      console.error(`Помилка видалення продукту з id ${id}:`, error);
+      throw error;
+    }
+  }
+  
+
   getProductById(id: string): IProduct | undefined {
     return this.products.find(p => p.getId() === id);
+  }
+
+  private generateId(type: string): string {
+    const prefixMap: Record<string, string> = {
+      os: 'OS',
+      antivirus: 'AV',
+      office: 'OFF',
+      driver: 'DR'
+    };
+    const prefix = prefixMap[type] || type.toUpperCase();
+    const randomString = Math.random().toString(36).substring(2, 8).toUpperCase();
+    return `${prefix}${randomString}`;
+  }
+  async addProduct(type: string, data: any): Promise<IProduct> {
+
+    const id = this.generateId(type);
+    var productData = {};
+    if (type === 'other') {
+      productData = { ...data, id };
+    } else {
+      productData = { ...data, type, id };
+    }
+    
+    const newProduct = this.factory.createProduct(type, productData);
+    await set(ref(this.db, `products/${id}`), productData);
+    await this.fetchProducts();
+    return newProduct;
+  }
+
+  async deleteProductsByType(type: string): Promise<void> {
+    try {
+      const productsRef = ref(this.db, 'products');
+      const snapshot = await get(productsRef);
+  
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const deletions = Object.entries(data)
+          .filter(([_, prod]: any) => prod.type === type)
+          .map(([key, _]) => remove(ref(this.db, `products/${key}`)));
+  
+        await Promise.all(deletions);
+        console.log(`Видалено всі продукти типу: ${type}`);
+      }
+      this.products = this.products.filter(product => product.getType() !== type);
+      await this.fetchProducts(); 
+    } catch (error) {
+      console.error(`Помилка видалення продуктів типу ${type}:`, error);
+      throw error;
+    }
   }
 }

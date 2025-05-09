@@ -2,6 +2,7 @@ import { IProduct } from "./Iproduct";
 
 export abstract class BaseProduct implements IProduct {
     constructor(
+      private type: string,
       private id: string,
       private name: string,
       private price: number,
@@ -22,6 +23,10 @@ export abstract class BaseProduct implements IProduct {
   
     getDescription(): string {
       return this.description;
+    }
+
+    getType(): string {
+      return this.type;
     }
 
     getInfo(): string {

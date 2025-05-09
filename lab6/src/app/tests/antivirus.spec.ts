@@ -3,6 +3,7 @@ import { Antivirus } from "../classes/antivirus";
 
 describe('Antivirus', () => {
   let antivirus: Antivirus;
+  const testType = 'av';
   const testId = 'av-001';
   const testName = 'Norton Security';
   const testPrice = 49.99;
@@ -12,6 +13,7 @@ describe('Antivirus', () => {
 
   beforeEach(() => {
     antivirus = new Antivirus(
+      testType,
       testId,
       testName,
       testPrice,
@@ -52,6 +54,7 @@ describe('Antivirus', () => {
   it('should handle zero price correctly', () => {
     // Test with free product
     const freeAntivirus = new Antivirus(
+      'av',
       'av-free',
       'Free Antivirus',
       0,
@@ -67,6 +70,7 @@ describe('Antivirus', () => {
   it('should handle different protection levels', () => {
     // Test with different protection level
     const premiumAntivirus = new Antivirus(
+      'av',
       'av-premium',
       'Premium Antivirus',
       99.99,
@@ -81,6 +85,7 @@ describe('Antivirus', () => {
   it('should handle large number of supported devices', () => {
     // Test with large number of devices
     const enterpriseAntivirus = new Antivirus(
+      'av',
       'av-enterprise',
       'Enterprise Antivirus',
       499.99,

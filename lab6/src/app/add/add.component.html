@@ -18,6 +18,9 @@
     <ion-segment-button value="driver">
       <ion-label>Driver</ion-label>
     </ion-segment-button>
+    <ion-segment-button value="other">
+      <ion-label>New</ion-label>
+    </ion-segment-button>
   </ion-segment>
 
   <div [ngSwitch]="selectedProductType">
@@ -25,4 +28,5 @@
     <app-offsuite-form *ngSwitchCase="'office'" (submitForm)="onFormSubmit($event)"></app-offsuite-form>
     <app-os-form *ngSwitchCase="'os'" (submitForm)="onFormSubmit($event)"></app-os-form>
     <app-driver-form *ngSwitchCase="'driver'" (submitForm)="onFormSubmit($event)"></app-driver-form>
+    <app-other-form *ngSwitchCase="'other'" (submitForm)="onFormSubmit($event)"></app-other-form>
   </div>

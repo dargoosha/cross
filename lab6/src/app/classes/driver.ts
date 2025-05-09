@@ -2,6 +2,7 @@ import { BaseProduct } from "./base_product";
 
 export class Driver extends BaseProduct {
     constructor(
+        type: string,
         id: string,
         name: string,
         price: number,
@@ -9,7 +10,7 @@ export class Driver extends BaseProduct {
         private hardwareType: string, 
         private version: string 
     ) {
-        super(id, name, price, description);
+        super(type, id, name, price, description);
     }
 
     override getInfo(): string {

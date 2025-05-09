@@ -1,5 +1,6 @@
-[
-    {
+{ 
+  "products": {
+    "OS001": {
       "type": "os",
       "id": "OS001",
       "name": "Windows 11 Pro",
@@ -11,7 +12,7 @@
         "x64"
       ]
     },
-    {
+    "OS002": {
       "type": "os",
       "id": "OS002",
       "name": "Ubuntu 22.04 LTS",
@@ -24,7 +25,7 @@
         "ARM"
       ]
     },
-    {
+    "AV001": {
       "type": "antivirus",
       "id": "AV001",
       "name": "Kaspersky Total Security",
@@ -33,7 +34,7 @@
       "protectionLevel": "Premium",
       "supportedDevices": 5
     },
-    {
+     "AV002": {
       "type": "antivirus",
       "id": "AV002",
       "name": "Norton 360 Deluxe",
@@ -42,7 +43,7 @@
       "protectionLevel": "Advanced",
       "supportedDevices": 3
     },
-    {
+    "OFF001":{
       "type": "office",
       "id": "OFF001",
       "name": "Microsoft Office 365",
@@ -57,7 +58,7 @@
       ],
       "isSubscription": true
     },
-    {
+     "OFF002": {
       "type": "office",
       "id": "OFF002",
       "name": "LibreOffice",
@@ -73,7 +74,7 @@
       ],
       "isSubscription": false
     },
-    {
+    "DR001":{
       "type": "driver",
       "id": "DR001",
       "name": "USBDriver",
@@ -82,4 +83,5 @@
       "hardwareType": "USB",
       "version": "1.0"
     }
-  ]
+  }
+}

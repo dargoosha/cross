@@ -4,6 +4,7 @@ import { OfficeSuite } from '../classes/office_suite';
 import { OperatingSystem } from '../classes/operating_system';
 import { IProduct } from '../classes/Iproduct';
 import { Driver } from '../classes/driver';
+import { Other } from '../classes/other';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class SoftwareFactoryService {
     switch (type) {
       case 'os':
         return new OperatingSystem(
+          data.type,
           data.id,
           data.name,
           data.price,
@@ -25,6 +27,7 @@ export class SoftwareFactoryService {
         );
       case 'antivirus':
         return new Antivirus(
+          data.type,
           data.id,
           data.name,
           data.price,
@@ -34,6 +37,7 @@ export class SoftwareFactoryService {
         );
       case 'office':
         return new OfficeSuite(
+          data.type,
           data.id,
           data.name,
           data.price,
@@ -43,6 +47,7 @@ export class SoftwareFactoryService {
         );
       case 'driver':
         return new Driver(
+          data.type,
           data.id,
           data.name,
           data.price,
@@ -51,7 +56,13 @@ export class SoftwareFactoryService {
           data.version
       );
       default:
-        throw new Error('Unknown product type');
+        return new Other(
+          data.type,
+          data.id,
+          data.name,
+          data.price,
+          data.description
+        );
     }
   }
 }

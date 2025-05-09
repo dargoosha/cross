@@ -9,7 +9,6 @@ export class FormsFactoryService {
 
   private getCommonFields(products?: any[]): FormGroup {
     return this.fb.group({
-      id: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9-]+$/), Validators.maxLength(50), this.uniqueIdValidator(products)]],
       name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
       price: [0, [Validators.required, Validators.min(0), this.priceRangeValidator()]],
       description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]]
@@ -38,7 +37,7 @@ export class FormsFactoryService {
     switch (type) {
       case 'os':
         form = this.getCommonFields(products);
-        form.addControl('version', this.fb.control(data?.version || '', [Validators.required, Validators.pattern(/^\d+\.\d+(\.\d+)?$/)]));
+        form.addControl('version', this.fb.control(data?.version || '', [Validators.required]));
         form.addControl('supportedArchitectures', this.fb.control(data?.supportedArchitectures || [], [Validators.required, Validators.minLength(1)]));
         break;
 
@@ -57,11 +56,17 @@ export class FormsFactoryService {
       case 'driver':
         form = this.getCommonFields(products);
         form.addControl('hardwareType', this.fb.control(data?.hardwareType || '', [Validators.required, Validators.pattern(/^(GPU|Printer|Network|Other)$/)]));
-        form.addControl('version', this.fb.control(data?.version || '', [Validators.required, Validators.pattern(/^\d+\.\d+(\.\d+)?$/)]));
+        form.addControl('version', this.fb.control(data?.version || '', [Validators.required]));
         break;
 
       default:
-        throw new Error('Unknown product type');
+        form = this.fb.group({
+          type: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+          name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+          price: [0, [Validators.required, Validators.min(0), this.priceRangeValidator()]],
+          description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]]
+        });
+
     }
 
     if (data) {

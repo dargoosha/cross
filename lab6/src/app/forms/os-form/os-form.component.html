@@ -5,13 +5,7 @@
 </ion-header>
 
   <form [formGroup]="osForm" (ngSubmit)="onSubmit()">
-    <ion-item>
-      <ion-label position="floating">ID</ion-label>
-      <ion-input formControlName="id" type="text"></ion-input>
-      <div *ngIf="osForm.get('id')?.invalid && osForm.get('id')?.touched" class="error">
-        ID is required and must be alphanumeric (max 50 characters).
-      </div>
-    </ion-item>
+
 
     <ion-item>
       <ion-label position="floating">Name</ion-label>

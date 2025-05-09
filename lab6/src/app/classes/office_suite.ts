@@ -2,6 +2,7 @@ import { BaseProduct } from "./base_product";
 
 export class OfficeSuite extends BaseProduct {
     constructor(
+        type: string,
         id: string,
         name: string,
         price: number,
@@ -9,7 +10,7 @@ export class OfficeSuite extends BaseProduct {
         private includedApps: string[], // Unique field: list of applications in the suite
         private isSubscription: boolean // Unique field: subscription-based or one-time purchase
     ) {
-        super(id, name, price, description);
+        super(type, id, name, price, description);
     }
 
     override getInfo(): string {

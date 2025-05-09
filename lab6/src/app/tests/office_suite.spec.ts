@@ -2,6 +2,7 @@ import { OfficeSuite } from "../classes/office_suite";
 
 describe('OfficeSuite', () => {
     let officeSuite: OfficeSuite;
+    const testType = 'off';
     const testId = 'off-001';
     const testName = 'Microsoft Office 365';
     const testPrice = 99.99;
@@ -12,6 +13,7 @@ describe('OfficeSuite', () => {
     beforeEach(() => {
       // Create a new instance before each test
       officeSuite = new OfficeSuite(
+        testType,
         testId,
         testName,
         testPrice,
@@ -53,6 +55,7 @@ describe('OfficeSuite', () => {
     it('should handle one-time purchase office suites', () => {
       // Test with one-time purchase product
       const oneTimeOfficeSuite = new OfficeSuite(
+        'off',
         'off-002',
         'Microsoft Office 2021',
         249.99,
@@ -67,6 +70,7 @@ describe('OfficeSuite', () => {
     it('should handle different sets of included applications', () => {
       // Test with different apps
       const minimalOfficeSuite = new OfficeSuite(
+        'off',
         'off-003',
         'Basic Office',
         49.99,
@@ -80,6 +84,7 @@ describe('OfficeSuite', () => {
     it('should handle empty included applications list', () => {
       // Test with empty apps list
       const emptyAppsSuite = new OfficeSuite(
+        'off',
         'off-004',
         'Custom Office',
         19.99,
@@ -94,6 +99,7 @@ describe('OfficeSuite', () => {
     it('should handle free office suites', () => {
       // Test with free product
       const freeOfficeSuite = new OfficeSuite(
+        'off',
         'off-free',
         'LibreOffice',
         0,
