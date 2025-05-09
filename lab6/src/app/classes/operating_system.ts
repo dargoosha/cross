@@ -6,8 +6,8 @@ export class OperatingSystem extends BaseProduct {
       name: string,
       price: number,
       description: string,
-      private version: string, // Unique field: OS version
-      private supportedArchitectures: string[] // Unique field: x86, x64, ARM, etc.
+      private version: string, 
+      private supportedArchitectures: string[] 
   ) {
       super(id, name, price, description);
   }

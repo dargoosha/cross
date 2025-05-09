@@ -1,0 +1,85 @@
+[
+    {
+      "type": "os",
+      "id": "OS001",
+      "name": "Windows 11 Pro",
+      "price": 199.99,
+      "description": "Professional operating system for business and advanced users",
+      "version": "11 Pro",
+      "supportedArchitectures": [
+        "x86",
+        "x64"
+      ]
+    },
+    {
+      "type": "os",
+      "id": "OS002",
+      "name": "Ubuntu 22.04 LTS",
+      "price": 0,
+      "description": "Free and open-source Linux distribution",
+      "version": "22.04 LTS",
+      "supportedArchitectures": [
+        "x86",
+        "x64",
+        "ARM"
+      ]
+    },
+    {
+      "type": "antivirus",
+      "id": "AV001",
+      "name": "Kaspersky Total Security",
+      "price": 49.99,
+      "description": "Comprehensive antivirus protection for all devices",
+      "protectionLevel": "Premium",
+      "supportedDevices": 5
+    },
+    {
+      "type": "antivirus",
+      "id": "AV002",
+      "name": "Norton 360 Deluxe",
+      "price": 59.99,
+      "description": "Advanced antivirus with VPN and cloud backup",
+      "protectionLevel": "Advanced",
+      "supportedDevices": 3
+    },
+    {
+      "type": "office",
+      "id": "OFF001",
+      "name": "Microsoft Office 365",
+      "price": 99.99,
+      "description": "Subscription-based office suite with Word, Excel, and PowerPoint",
+      "includedApps": [
+        "Word",
+        "Excel",
+        "PowerPoint",
+        "Outlook",
+        "OneNote"
+      ],
+      "isSubscription": true
+    },
+    {
+      "type": "office",
+      "id": "OFF002",
+      "name": "LibreOffice",
+      "price": 0,
+      "description": "Free and open-source office suite",
+      "includedApps": [
+        "Writer",
+        "Calc",
+        "Impress",
+        "Draw",
+        "Base",
+        "Math"
+      ],
+      "isSubscription": false
+    },
+    {
+      "type": "driver",
+      "id": "DR001",
+      "name": "USBDriver",
+      "price": 100,
+      "description": "Driver description",
+      "hardwareType": "USB",
+      "version": "1.0"
+    }
+  ]
