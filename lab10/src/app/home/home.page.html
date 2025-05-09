@@ -1,20 +1,30 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Список продуктів</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content *ngIf="!isLoading; else loading">
+  <ion-item>
+    <ion-label>Тип товару</ion-label>
+    <ion-select [(ngModel)]="selectedType" interface="popover" placeholder="Виберіть тип">
+      <ion-select-option value="">Усі</ion-select-option>
+      <ion-select-option *ngFor="let type of uniqueTypes" [value]="type">
+        {{ type }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-list>
+    <ion-item *ngFor="let product of filteredProducts">
+      <ion-label>
+        <h2>{{ product.getName() }}</h2>
+        <p>{{ product.getDescription() | version }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ng-template #loading>
+  <ion-spinner name="crescent"></ion-spinner>
+</ng-template>
